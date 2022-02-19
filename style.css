@@ -99,3 +99,7 @@ h3 {
 #target {
     width: 345px;
   }
+
+#input.controls {
+      float: right;
+  }
