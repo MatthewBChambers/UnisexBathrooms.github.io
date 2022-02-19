@@ -167,3 +167,30 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     );
     infoWindow.open(map);
 }
+
+function add_pins(map) { // Add pins to the Map from database info.
+
+    // Grab marker information from PHP code.
+    // TODO Double-check PHP code
+    // TODO Are both types of arrays interoperable?
+    // TODO Verfiy that PHP substitution actually works
+    //var MyJSStringVar = "<?php Print($MyPHPStringVar); ?>";
+    //var MyJSNumVar = <?php Print($MyPHPNumVar); ?>;
+
+    // EXAMPLE NESTED ARRAY.
+    var data = [
+                {lat: '30', lng: '30', age: 22, address: 'salesperson'},
+                {lat: '20', lng: '20', age: 32, address: 'director'}
+               ]
+
+    // Make list of pin data into individual Marker objects for the Map.
+    for (let room = 0; room < data.length; room++) {
+        console.log(data[room]["address"], data[room]["lat"], data[room]["lng"])
+        
+        new google.maps.Marker({
+            position: {lat: data[room]["lat"], lng: data[room]["lng"]}
+            map,
+            title: data[room]["title"] 
+        })
+    }
+}
