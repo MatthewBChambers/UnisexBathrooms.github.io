@@ -1,4 +1,4 @@
-Make sure that python is installed and added to your PATH variable (just ask).
+Make sure that python is installed and added to your PATH variable.
 
 Open the command prompt.
 
@@ -10,6 +10,3 @@ Run the command "python -m http.server".
 Go to chrome or whatever browser, then type "http://localhost:8000/page.html".
 
 Web page should appear.
-
-
-
