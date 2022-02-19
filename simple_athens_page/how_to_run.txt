@@ -1,0 +1,15 @@
+Make sure that python is installed and added to your PATH variable (just ask).
+
+Open the command prompt.
+
+Navigate to the folder with this file using the command prompt.
+https://www.digitalcitizen.life/command-prompt-how-use-basic-commands/#ftoc-heading-1
+
+Run the command "python -m http.server".
+
+Go to chrome or whatever browser, then type "http://localhost:8000/page.html".
+
+Web page should appear.
+
+
+
