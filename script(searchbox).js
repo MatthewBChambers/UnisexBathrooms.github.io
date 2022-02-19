@@ -11,13 +11,49 @@ function initMap() {
   const marker = new google.maps.Marker({
     position: athens,
     map: map,
-  });
+});
+infoWindow = new google.maps.InfoWindow();
 
-  // Create the search box and link it to the UI element.
+    const locationButton = document.createElement("button");
+
+    locationButton.textContent = "Pan to Current Location";
+    locationButton.classList.add("custom-map-control-button");
+    map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
+    locationButton.addEventListener("click", () => {
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude,
+                    };
+
+                    infoWindow.setPosition(pos);
+                    infoWindow.setContent("Location found.");
+                    infoWindow.open(map);
+                    map.setCenter(pos);
+                    var marker = new google.maps.Marker({
+                        position: pos,
+                        title: "Current Location!"
+                    });
+                    marker.setMap(map); // No marker shows up...
+                },
+                () => {
+                    handleLocationError(true, infoWindow, map.getCenter());
+                }
+            );
+        } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+        }
+    });
+
+    // Create the search box and link it to the UI element.
   const input = document.getElementById("pac-input");
   const searchBox = new google.maps.places.SearchBox(input);
 
-  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+  map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(input);
   // Bias the SearchBox results towards current map's viewport.
   map.addListener("bounds_changed", () => {
     searchBox.setBounds(map.getBounds());
@@ -112,6 +148,16 @@ function initMap() {
     });
   });
 }
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(
+        browserHasGeolocation
+            ? "Error: The Geolocation service failed."
+            : "Error: Your browser doesn't support geolocation."
+    );
+    infoWindow.open(map);
+}
+
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.setPosition(pos);
     infoWindow.setContent(
