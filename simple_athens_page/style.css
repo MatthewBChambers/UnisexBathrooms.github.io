@@ -1,7 +1,23 @@
 /* Set the size of the div element that contains the map */
 #map {
-  height: 400px;
+  height: 600px;
   /* The height is 400 pixels */
-  width: 100%;
+  width: 90%;
   /* The width is the width of the web page */
+  border-style: solid;
+  border-width: 5px;
+  border-color: #4B4F40;
+  margin-left: auto;
+  margin-right: auto;
+}
+body {
+    background-color: #D2D2C6;
+}
+h1 {
+    text-align: center;
+    color: #4B4F40;
+}
+h3 {
+    text-align: center;
+    color: #4B4F40;
 }
