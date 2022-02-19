@@ -8,19 +8,20 @@
         <script src="./index.js"></script>
   </head>
   <body>
-        <input
-            id="pac-input"
-            class="controls"
-            type="text"
-            placeholder="Search Box"
-            name="searchbar"
-        />
+        
         <!--text on top of map-->
         <h1>Hi! Welcome to BathroomFinder!</h1>
         <h3>Use the map below to find the nearest bathroom.</h3>
 
         <!--The div element for the map -->
         <div id="map"></div>
+        <input
+            id="pac-input"
+            class="controls"
+            type="text"
+            placeholder="Search Box"
+            
+        />
         <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
         <script
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_yKhQXoonAcN2z5QumTPNOwE5LlYSxlY&callback=initMap&libraries=places&v=weekly"
