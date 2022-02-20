@@ -185,7 +185,7 @@ tr:nth-child(odd) {
     color: white;
     font-size: 30px;
 }
-img {
+#arch {
     width: 100%;
     height: auto;
 }
@@ -212,4 +212,14 @@ img {
 .topnav a.active {
     background-color: #C8D8EB;
     color: black;
+}
+h4{
+    text-align: center;
+    color: white;
+}
+#imgc {
+    display: block;
+    width: 30%;
+    margin-left:auto;
+    margin-right:auto;
 }
