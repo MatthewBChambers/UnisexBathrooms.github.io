@@ -1,21 +1,42 @@
+<?php
+  include_once('../ubr/db.php');
+
+  $query = $conn->prepare("SELECT * FROM unisex");
+  $query->execute();
+  $result = $query->get_result(); 
+  $numrows = mysqli_num_rows($result);
+  
+  $brarray = array();
+while ($row = $result->fetch_row()) {
+	$brarray[] = $row;
+}
+//echo json_encode($brarray);
+$jsbrarray = json_encode($brarray);
+  mysqli_close($conn);
+?>
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>BathroomFinder</title>
-        <link rel="stylesheet" type="text/css" href="./style.css" />
-    </head>
-    <body>
-        <!--topnav-->
-        <div class="topnav">
-            <a class="active" href="home.html">Home</a>
-            <a href="page.html">Map</a>
-            <a href="list.html">Table</a>
-        </div>
-        <!--header-->
-        <div class="header">
-            <h1>BathroomFinder</h1>
-            <p>Find gender neutral bathrooms near you.</p>
-        </div>
-        <img src="https://news.uga.edu/wp-content/uploads/2021/03/arch_sun_nosign.jpg" alt="UGA_Arch">
-    </body>
+<html lang="en">
+  <head>
+	<meta charset='utf-8' />
+    <title>Add Map</title>
+
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+<script> brarray = JSON.parse('<?php echo json_encode($brarray); ?>'); </script>
+
+  </head>
+  <body>
+
+	<script src='../ubr/scripttesttwo.js'></script>
+    <h3>My Google Maps Demo</h3>
+    <!--The div element for the map -->
+    <div id="map"></div>
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_yKhQXoonAcN2z5QumTPNOwE5LlYSxlY&callback=initMap&libraries=&v=weekly"
+      async
+    ></script>
+    <p>Test.</p>
+    <p>test again</p>
+  </body>
 </html>
