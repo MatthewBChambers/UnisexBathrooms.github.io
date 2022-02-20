@@ -6,22 +6,22 @@
   /* The width is the width of the web page */
   border-style: solid;
   border-width: 5px;
-  border-color: #4B4F40;
+  border-color: black;
   margin-left: auto;
   margin-right: auto;
 }
 body {
-    background-color: #D2D2C6;
+    background-color: #BA0C2F;
 }
 h1 {
-    font-family: "Arial", serif;
+    font-family: "Oswald Medium", serif;
     text-align: center;
-    color: #4B4F40;
+    color: white;
 }
-h3 {
-    font-family: "Arial", serif;
+h2, h3 {
+    font-family: Oswald, serif;
     text-align: center;
-    color: #4B4F40;
+    color:white;
 }
 #description {
     font-family: Roboto;
@@ -54,25 +54,21 @@ h3 {
     font-family: Roboto;
     padding: 0;
 
-  }
-  
+}
 #pac-container {
     padding-bottom: 12px;
     margin-right: 12px;
-  }
-  
+}
 .pac-controls {
     display: inline-block;
     padding: 5px 11px;
     margin-bottom: 20px;
-  }
-  
+}
 .pac-controls label {
     font-family: Roboto;
     font-size: 13px;
     font-weight: 300;
-  }
-  
+}
 #pac-input {
     background-color: #fff;
     font-family: Roboto;
@@ -82,28 +78,24 @@ h3 {
     padding: 0 11px 0 13px;
     text-overflow: ellipsis;
     width: 35%;
-  }
-  
+}
 #pac-input:focus {
     border-color: #4d90fe;
-  }
-  
+}
 #title {
     color: #fff;
     background-color: #4d90fe;
     font-size: 25px;
     font-weight: 500;
     padding: 6px 12px;
-  }
-  
+}
 #target {
     width: 345px;
-  }
-
+}
 #input.controls {
       float: right;
-  }
-  .controls {
+}
+.controls {
     margin-top: 10px;
     border: 1px solid transparent;
     border-radius: 2px 0 0 2px;
@@ -112,10 +104,9 @@ h3 {
     height: 32px;
     outline: none;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  }
-  
-  #origin-input,
-  #destination-input {
+}
+#origin-input,
+#destination-input {
     background-color: #fff;
     font-family: Roboto;
     font-size: 15px;
@@ -124,27 +115,23 @@ h3 {
     padding: 0 11px 0 13px;
     text-overflow: ellipsis;
     width: 200px;
-  }
-  
-  #origin-input:focus,
-  #destination-input:focus {
+}
+#origin-input:focus,
+#destination-input:focus {
     border-color: #4d90fe;
-  }
-  
-  #mode-selector {
+}
+#mode-selector {
     color: #fff;
     background-color: #4d90fe;
     margin-left: 12px;
     padding: 5px 11px 0px 11px;
-  }
-  
-  #mode-selector label {
+}
+#mode-selector label {
     font-family: Roboto;
     font-size: 13px;
     font-weight: 300;
-  }
-
-  .custom-map-control-button {
+}
+.custom-map-control-button {
     background-color: #fff;
     border: 0;
     border-radius: 2px;
@@ -155,7 +142,74 @@ h3 {
     overflow: hidden;
     height: 40px;
     cursor: pointer;
-  }
-  .custom-map-control-button:hover {
+}
+.custom-map-control-button:hover {
     background: #ebebeb;
-  }
+}
+table {
+    margin-left:auto;
+    margin-right:auto;
+    border: 3px solid;
+    width: 100%;
+    border-collapse: collapse;
+    box-align: center;
+}
+th {
+    font-size: 20px;
+    height: 40px;
+    background-color: #C8D8EB;
+    color: black;
+}
+th, td {
+    text-align: left;
+    padding: 16px;
+    font-family: Ariel, serif;
+    font-weight: bold;
+}
+tr:nth-child(even) {
+    background-color: white;
+    color: black;
+}
+tr:nth-child(odd) {
+    background-color: #CCCCCC;
+    color: black;
+}
+#northSouth {
+    text-align: left;
+    padding:16px;
+}
+.header {
+    padding: 60px;
+    text-align: center;
+    background: #BA0C2F;
+    color: white;
+    font-size: 30px;
+}
+img {
+    width: 100%;
+    height: auto;
+}
+/* Add a black background color to the top navigation */
+.topnav {
+    background-color: black;
+    overflow: hidden;
+}
+/* Style the links inside the navigation bar */
+.topnav a {
+    float: left;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 25px;
+}
+/* Change the color of links on hover */
+.topnav a:hover {
+    background-color: #C8D8EB;
+    color: black;
+}
+/* Add a color to the active/current link */
+.topnav a.active {
+    background-color: #C8D8EB;
+    color: black;
+}
