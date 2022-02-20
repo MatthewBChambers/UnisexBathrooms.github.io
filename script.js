@@ -28,12 +28,51 @@ function initMap() {
             
         }
         L = { lat: arLat, lng: arLong};
-        const myLL = L;
-        new google.maps.Marker({
-            position: myLL,
+
+        // const myLL = L;
+        // new google.maps.Marker({
+        //     position: myLL,
+        //     map,
+        //     title: arName,
+        // });
+
+        // --------------------------------------------------
+        // --------------------------------------------------
+        // --------------------------------------------------
+
+        const contentString =
+        `<div id="content">` +
+        `<div id="siteNotice">` +
+        `</div>` +
+        `<h1 id="firstHeading" class="firstHeading">${arName}</h1>` +
+        `<div id="bodyContent">` +
+        `<p>Coordinates: ${arLat}, ${arLong}</p>` +
+        `<img src="https://img.icons8.com/ios-glyphs/50/000000/collapse-arrow.png"/>` +
+        `<img src="https://img.icons8.com/fluency-systems-regular/50/000000/expand-arrow--v1.png"/>` +
+        `</div>` +
+        `</div>`;
+
+        const infowindow = new google.maps.InfoWindow({
+            content: contentString,
+        });
+
+        const marker = new google.maps.Marker({
+            position: {lat: arLat, lng: arLong},
             map,
             title: arName,
         });
+
+        marker.addListener("click", () => {
+            infowindow.open({
+                anchor: marker,
+                map,
+                shouldFocus: false,
+            });
+        });
+
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
 
     }
 
