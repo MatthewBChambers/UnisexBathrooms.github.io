@@ -13,14 +13,12 @@ function initMap() {
     map: map,
 });
 infoWindow = new google.maps.InfoWindow();
-    
-    add_pins(map);
 
     const locationButton = document.createElement("button");
 
     locationButton.textContent = "Pan to Current Location";
     locationButton.classList.add("custom-map-control-button");
-    map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
+    map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(locationButton);
     locationButton.addEventListener("click", () => {
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
@@ -149,7 +147,112 @@ infoWindow = new google.maps.InfoWindow();
         }
     });
   });
+  new AutocompleteDirectionsHandler(map);
 }
+
+class AutocompleteDirectionsHandler {
+  map;
+  originPlaceId;
+  destinationPlaceId;
+  travelMode;
+  directionsService;
+  directionsRenderer;
+  constructor(map) {
+    this.map = map;
+    this.originPlaceId = "";
+    this.destinationPlaceId = "";
+    this.travelMode = google.maps.TravelMode.WALKING;
+    this.directionsService = new google.maps.DirectionsService();
+    this.directionsRenderer = new google.maps.DirectionsRenderer();
+    this.directionsRenderer.setMap(map);
+
+    const originInput = document.getElementById("origin-input");
+    const destinationInput = document.getElementById("destination-input");
+    const modeSelector = document.getElementById("mode-selector");
+    // Specify just the place data fields that you need.
+    const originAutocomplete = new google.maps.places.Autocomplete(
+      originInput,
+      { fields: ["place_id"] }
+    );
+    // Specify just the place data fields that you need.
+    const destinationAutocomplete = new google.maps.places.Autocomplete(
+      destinationInput,
+      { fields: ["place_id"] }
+    );
+
+    this.setupClickListener(
+      "changemode-walking",
+      google.maps.TravelMode.WALKING
+    );
+    this.setupClickListener(
+      "changemode-transit",
+      google.maps.TravelMode.TRANSIT
+    );
+    this.setupClickListener(
+      "changemode-driving",
+      google.maps.TravelMode.DRIVING
+    );
+    this.setupPlaceChangedListener(originAutocomplete, "ORIG");
+    this.setupPlaceChangedListener(destinationAutocomplete, "DEST");
+    this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(originInput);
+    this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(
+      destinationInput
+    );
+    this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(modeSelector);
+  }
+  // Sets a listener on a radio button to change the filter type on Places
+  // Autocomplete.
+  setupClickListener(id, mode) {
+    const radioButton = document.getElementById(id);
+
+    radioButton.addEventListener("click", () => {
+      this.travelMode = mode;
+      this.route();
+    });
+  }
+  setupPlaceChangedListener(autocomplete, mode) {
+    autocomplete.bindTo("bounds", this.map);
+    autocomplete.addListener("place_changed", () => {
+      const place = autocomplete.getPlace();
+
+      if (!place.place_id) {
+        window.alert("Please select an option from the dropdown list.");
+        return;
+      }
+
+      if (mode === "ORIG") {
+        this.originPlaceId = place.place_id;
+      } else {
+        this.destinationPlaceId = place.place_id;
+      }
+
+      this.route();
+    });
+  }
+  route() {
+    if (!this.originPlaceId || !this.destinationPlaceId) {
+      return;
+    }
+
+    const me = this;
+
+    this.directionsService.route(
+      {
+        origin: { placeId: this.originPlaceId },
+        destination: { placeId: this.destinationPlaceId },
+        travelMode: this.travelMode,
+      },
+      (response, status) => {
+        if (status === "OK") {
+          me.directionsRenderer.setDirections(response);
+        } else {
+          window.alert("Directions request failed due to " + status);
+        }
+      }
+    );
+  }
+}
+
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.setPosition(pos);
     infoWindow.setContent(
@@ -158,69 +261,4 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
             : "Error: Your browser doesn't support geolocation."
     );
     infoWindow.open(map);
-}
-
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-    infoWindow.setPosition(pos);
-    infoWindow.setContent(
-        browserHasGeolocation
-            ? "Error: The Geolocation service failed."
-            : "Error: Your browser doesn't support geolocation."
-    );
-    infoWindow.open(map);
-}
-
-function add_pins(map) { // Add pins to the Map from database info.
-
-    // Grab marker information from PHP code.
-    // TODO Double-check PHP code
-    // TODO Are both types of arrays interoperable?
-    // TODO Verfiy that PHP substitution actually works
-    //var MyJSStringVar = "<?php Print($MyPHPStringVar); ?>";
-    //var MyJSNumVar = <?php Print($MyPHPNumVar); ?>;
-
-    // EXAMPLE NESTED ARRAY.
-    var data = [
-                {lat: '30', lng: '30', age: 22, address: 'salesperson'},
-                {lat: '20', lng: '20', age: 32, address: 'director'}
-               ]
-
-    // Make list of pin data into individual Marker objects for the Map.
-    for (let room = 0; room < data.length; room++) {
-        console.log(data[room]["address"], data[room]["lat"], data[room]["lng"])
-        
-        new google.maps.Marker({
-            position: {lat: data[room]["lat"], lng: data[room]["lng"]},
-            map,
-            title: data[room]["title"] 
-        })
-    }
-}
-
-function add_pins(map) {
-    // Add extra bathroom markers from database.
-    // Grab marker information from PHP code.
-    // TODO Double-check PHP code
-    // TODO Are both types of arrays interoperable?
-    // TODO Verfiy that PHP substitution actually works
-    //var MyJSStringVar = "<?php Print($MyPHPStringVar); ?>";
-    //var MyJSNumVar = <?php Print($MyPHPNumVar); ?>;
-
-    // EXAMPLE NESTED ARRAY.
-    var data = [
-            {lat: 30, lng: 30, age: 22, address: 'salesperson'},
-            {lat: 20, lng: 20, age: 32, address: 'director'}
-                ]
-
-    // Make list of pin data into individual Marker objects for the Map.
-    for (let room = 0; room < data.length; room++) {
-        
-        // console.log(data[room]["address"], data[room]["lat"], data[room]["lng"])
-        
-        new google.maps.Marker({
-            position: {lat: data[room]["lat"], lng: data[room]["lng"]},
-            map,
-            title: data[room]["title"] 
-        })
-    }
 }
